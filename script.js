@@ -1,4 +1,4 @@
-function getRadioVal(form, name) {
+function getRadioVal(form, name) {      // f-ja ivertinimo balo (zvaigzduciu) reiksmei gauti
     var val;
     var radios = form.elements[name];
 
@@ -11,29 +11,62 @@ function getRadioVal(form, name) {
     return val;
 }
 
-let books = [];
-let addInfo=(ev)=>{
-  ev.preventDefault();
-
-  let book = {
-title : document.getElementById("title").value,
-author : document.getElementById("author").value,
-totalPages : document.getElementById("totalPages").value,
-readPages : document.getElementById("readPages").value,
-rating: getRadioVal(document.getElementById('form'), 'stars'),
-lefPages : (document.getElementById("totalPages").value)-(document.getElementById("readPages").value)
-}
-books.push(book);
-document.querySelector('form').reset();
-console.warn('added', {books});
+class Book {
+  constructor (title, author, totalPages, readPages, rating) {
+    this.title = title;
+    this.author = author;
+    this.totalPages = totalPages;
+    this.readPages = readPages;
+    this.rating = rating;
+    this.leftPages = leftPages;
+  }
 }
 
-document.addEventListener('DOMContentLoaded', ()=>{
-  document.getElementById('btn').addEventListener('click', addInfo)
-});
+var table = document.getElementById("the-table");
 
-books.forEach((item) => {
-    let p = document.createElement('p');
-    p.innerText = item;
-    document.querySelector('#list').appendChild(p);
+var form = document.getElementById("form");
+
+form.onsubmit = function(){
+
+    title = document.getElementById("title").value;
+    author = document.getElementById("author").value;
+    totalPages = document.getElementById("totalPages").value;
+    readPages = document.getElementById("readPages").value;
+    rating = getRadioVal(document.getElementById('form'), 'stars');
+    leftPages = totalPages-readPages;
+
+    bookObj = new Book(title, author, totalPages, readPages, rating);
+
+    var row = document.getElementById("the-table").insertRow();
+
+    var cell1 = row.insertCell();
+    cell1.innerHTML = bookObj.title;
+
+    var cell2 = row.insertCell(1);
+    cell2.innerHTML = bookObj.author;
+
+    var cell3 = row.insertCell(2);
+    cell3.innerHTML = bookObj.leftPages;
+
+    var cell4 = row.insertCell(3);
+    cell4.innerHTML = bookObj.rating;
+
+    var button1 = document.createElement("button");
+
+    button1.classList.add("btn");
+    button1.innerHTML='<i class="fa fa-trash"></i>';
+    cell4.appendChild(button1);
+
+    form.reset();
+    console.warn('added', {bookObj});
+}
+//
+//  button1.addEventListener("click", removeFunction); // FUNKCIJA ISTRINTI EILUTIE (NEVEIKIA)
+// removeFunction.preventDefault();
+//  function removeFunction() {
+//    row.remove(0);
+//  }
+
+document.getElementById("form").addEventListener("submit", function(event) {
+    event.preventDefault();
 });

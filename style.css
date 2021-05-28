@@ -10,6 +10,12 @@ h1 {
   color: #8B008B;
   margin: 0 auto;
   text-align: center;
+  font-weight: lighter;
+}
+
+span {
+  color: black;
+  font-weight: bold;
 }
 
 #form {
@@ -29,6 +35,34 @@ input {
   height: 4vh;
   border-radius: 3px;
   border-color: silver;
+}
+
+table {
+margin: 0 auto;
+width: 80%;
+margin-top: 30px;
+border-collapse:collapse;
+}
+
+table, td, th {
+  padding: 5px;
+  text-align: left;
+  border: 1px solid black;
+  opacity: 0.9;
+}
+
+.btn {
+    margin-left: 15px;
+    color: grey;
+    background: none;
+    border: none;
+    padding: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: grey;
 }
 
 .rating {
